@@ -15,15 +15,20 @@
   "homepage": "https://github.com/hourliert/angular2-boilerplate#readme",
   "dependencies": {
     "angular2": "^2.0.0-alpha.45",
-    "es6-shim": "^0.33.10"
+    "express": "^4.13.3"
   },
   "devDependencies": {
     "babel": "^5.8.29",
     "gulp": "^3.9.0",
-    "run-sequence": "^1.1.4",
+    "gulp-util": "^3.0.7",
+    "json-loader": "^0.5.3",
+    "raw-loader": "^0.5.1",
+    "source-map-support": "^0.3.3",
     "ts-loader": "^0.6.0",
+    "tsd": "^0.6.5",
     "typescript": "^1.6.2",
     "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.1"
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.4.1"
   }
 }

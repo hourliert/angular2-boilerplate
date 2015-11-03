@@ -13,6 +13,8 @@
     "outDir": "dist"
   },
   "files": [
-    "src/bootstrap.ts"
+    "src/client.ts",
+    "src/server.ts",
+    "typings/tsd.d.ts"
   ]
 }

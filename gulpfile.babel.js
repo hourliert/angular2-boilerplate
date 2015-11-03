@@ -1,9 +1,8 @@
 import gulp from 'gulp';
-import { serve } from './tasks/serve';
 import { bundle } from './tasks/bundle';
-import { build } from './tasks/build';
+import { serve } from './tasks/serve';
+import { server } from './tasks/server';
 
-gulp.task('default', ['build']);
-gulp.task('serve', ['build'], serve);
 gulp.task('bundle', bundle);
-gulp.task('build', build);
+gulp.task('serve', ['server'], serve);
+gulp.task('server', ['bundle'], server);

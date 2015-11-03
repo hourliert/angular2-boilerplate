@@ -1,36 +1,27 @@
 import gulp from 'gulp';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
 import BrowserSync from 'browser-sync';
+import webpackConfig from '../webpack.config';
 
-console.log(process.argv)
-
-const DEBUG = !process.argv.includes('--release');
-const WATCH = process.argv.includes('--watch');
+const bundler = webpack(webpackConfig[0]);
 const browserSync = BrowserSync.create();
-const reload = browserSync.reload;
 
 export function serve() {
-  const serverOptions = DEBUG ? {
-    baseDir: ['./src'],
-    routes: {
-      '/build': 'build',
-    },
-  } : {
-    baseDir: ['./build'],
+  const proxyOptions = {
+    target: 'localhost:5000',
+
+    middleware: [
+      webpackDevMiddleware(bundler, webpackConfig[0].devServer)
+    ]
   };
 
   browserSync.init({
-    notify: false,
-    server: serverOptions,
+    proxy: proxyOptions,
+    files: [
+      './src/**/*.html',
+      './src/**/*.css',
+      './src/**/*.ts'
+    ]
   });
-
-  if (WATCH) {
-    gulp.watch(
-      DEBUG ? [
-        './build/bundle.js',
-        './src/**/*.html',
-      ] : [
-        './build/*.html',
-      ],
-    reload);
-  }
 }
