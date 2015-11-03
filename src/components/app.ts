@@ -11,6 +11,6 @@ export class AppComponent {
   name: string;
   
   constructor() {
-    this.name = 'Thomas';
+    this.name = 'Thomas Hourlier';
   }
  }

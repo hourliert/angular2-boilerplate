@@ -1,17 +1,14 @@
 import * as path from 'path';
 import webpack from 'webpack';
 
-const NODE_ENV  = process.env.NODE_ENV || 'development';
+const DEBUG = !process.argv.includes('--release');
+const VERBOSE = process.argv.includes('--verbose');
+const WATCH = global.WATCH === undefined ? false : global.WATCH;
+const GLOBALS = {
+  'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+  __DEV__: DEBUG,
+};
 const config = require('./package.json');
-
-// Webpack Plugins
-const OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
-const CommonsChunkPlugin   = webpack.optimize.CommonsChunkPlugin;
-const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
-const DedupePlugin   = webpack.optimize.DedupePlugin;
-const DefinePlugin   = webpack.DefinePlugin;
-const HotModuleReplacementPlugin = webpack.HotModuleReplacementPlugin;
-const NoErrorsPlugin = webpack.NoErrorsPlugin;
 
 const TS_LOADER = {
   test: /\.tsx?$/,
@@ -34,23 +31,41 @@ const TS_LOADER = {
 };
 
 const common = {
-  devtool: 'source-map',
-  debug: true,
-  cache: true,
-
-  verbose: true,
-  displayErrorDetails: true,
+  name: 'common',
+  
+  devtool: DEBUG ? 'source-map' : false,
   context: __dirname,
+  
+  cache: DEBUG,
+  debug: DEBUG,
+  verbose: VERBOSE,
+  displayErrorDetails: VERBOSE,
+
   stats: {
     colors: true,
-    reasons: true
+    reasons: DEBUG,
+    hash: VERBOSE,
+    version: VERBOSE,
+    timings: true,
+    chunks: VERBOSE,
+    chunkModules: VERBOSE,
+    cached: VERBOSE,
+    cachedAssets: VERBOSE
   },
 
   // our Development Server config
   devServer: {
     publicPath: '/client/',
     stats: {
-      colors: true
+      colors: true,
+      reasons: DEBUG,
+      hash: VERBOSE,
+      version: VERBOSE,
+      timings: true,
+      chunks: VERBOSE,
+      chunkModules: VERBOSE,
+      cached: VERBOSE,
+      cachedAssets: VERBOSE
     }
   },
   
@@ -68,11 +83,8 @@ const common = {
   },
 
   plugins: [
-    new OccurenceOrderPlugin(),
-    new DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-      'VERSION': JSON.stringify(config.version)
-    })
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin(GLOBALS)
   ],
 
   module: {
@@ -90,6 +102,8 @@ const common = {
 };
 
 const client = Object.assign({}, common, {
+  name: 'client',
+  
   entry: {
     'angular2': [
       // Angular 2 Deps
@@ -132,25 +146,30 @@ const client = Object.assign({}, common, {
 
   plugins: [
     ...common.plugins,
-    new DedupePlugin(),
-    new CommonsChunkPlugin({
+    ...(!DEBUG ? [
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        compress: {
+          warnings: VERBOSE,
+        },
+      }),
+      new webpack.optimize.AggressiveMergingPlugin()
+    ] : []),
+    new webpack.optimize.CommonsChunkPlugin({
       name: 'angular2',
       minChunks: Infinity,
       filename: 'angular2.js'
     }),
-    new CommonsChunkPlugin({
+    new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js'
     })
-  ],
-  
-  node: {
-    crypto: false,
-    __filename: true
-  }
+  ]
 });
 
 const server = Object.assign({}, common, {
+  name: 'server',
+  
   entry: [
     './src/server',
   ],

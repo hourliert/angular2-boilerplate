@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "babel": "^5.8.29",
+    "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-util": "^3.0.7",
     "json-loader": "^0.5.3",
@@ -28,7 +29,6 @@
     "tsd": "^0.6.5",
     "typescript": "^1.6.2",
     "webpack": "^1.12.2",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.4.1"
+    "webpack-dev-middleware": "^1.2.0"
   }
 }
