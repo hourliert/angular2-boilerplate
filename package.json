@@ -1,0 +1,29 @@
+{
+  "name": "angular2-boilerplate",
+  "version": "0.0.0",
+  "description": "Angular 2 seed.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hourliert/angular2-boilerplate.git"
+  },
+  "author": "Thomas Hourlier <hourliert@gmail.com> (https://github.com/hourliert)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hourliert/angular2-boilerplate/issues"
+  },
+  "homepage": "https://github.com/hourliert/angular2-boilerplate#readme",
+  "dependencies": {
+    "angular2": "^2.0.0-alpha.45",
+    "es6-shim": "^0.33.10"
+  },
+  "devDependencies": {
+    "babel": "^5.8.29",
+    "gulp": "^3.9.0",
+    "run-sequence": "^1.1.4",
+    "ts-loader": "^0.6.0",
+    "typescript": "^1.6.2",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  }
+}
