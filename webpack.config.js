@@ -153,7 +153,7 @@ const client = Object.assign({}, common, {
       ...common.module.loaders,
       {
         test: /\.css$/,
-        loader: 'css-loader!postcss-loader',
+        loader: 'raw-loader!postcss-loader',
       },
 
       // support for .html as raw text
@@ -228,7 +228,7 @@ const server = Object.assign({}, common, {
       ...common.module.loaders,
       {
         test: /\.css$/,
-        loader: 'css-loader!postcss-loader',
+        loader: 'raw-loader!postcss-loader',
       }
     ],
   },

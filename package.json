@@ -19,7 +19,6 @@
   },
   "devDependencies": {
     "babel": "^5.8.29",
-    "css-loader": "^0.21.0",
     "del": "^2.0.2",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",

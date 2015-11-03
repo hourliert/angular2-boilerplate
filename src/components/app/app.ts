@@ -5,7 +5,7 @@ const styles = require('./app.css');
 @Component({
     selector: 'app',
     template: template,
-    styles: [styles.toString()]
+    styles: [styles]
 })
 export class AppComponent {
   name: string;
