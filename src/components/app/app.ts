@@ -1,11 +1,11 @@
 import {Component} from 'angular2/angular2';
+const template = require('./app.html');
+const styles = require('./app.css');
 
 @Component({
-    selector: 'my-app',
-    template: `
-      <h1>My First Angular 2 App</h1>
-      <span>{{name}}</span>
-    `
+    selector: 'app',
+    template: template,
+    styles: [styles.toString()]
 })
 export class AppComponent {
   name: string;

@@ -2,6 +2,8 @@ import 'babel-core/polyfill';
 
 import * as path from 'path';
 import * as express from 'express';
+// import { ng2engine } from 'angular2-universal-preview';
+// import { AppComponent } from './components';
 
 import { SERVER_PORT, SERVER_RENDERING } from './config';
 
@@ -29,9 +31,9 @@ function renderFullPage(html) {
         <!--<base href="/">-->
       </head>
       <body>
-        <my-app>
+        <app>
           ${html}
-        </my-app>
+        </app>
         
         <!-- Common files to be cached -->
         <script src="/client/common.js"></script>
@@ -47,7 +49,13 @@ function renderFullPage(html) {
 app.set('port', (process.env.PORT || port));
 app.use('/client', express.static(path.join(__dirname, './client')));
 if (SERVER_RENDERING) {
-  // Not implemented yet
+  // app.engine('.ng2.html', ng2engine);
+  // app.set('views', __dirname);
+  // app.set('view engine', 'ng2.html'); 
+  // app.use('/', (req, res) => {
+  //   res.render('index', { AppComponent });
+  // });
+  // Not yet implemented
 } else {
   app.use((req, res) => {
     res.status(200).send(renderFullPage('Loading without server rendering...'));

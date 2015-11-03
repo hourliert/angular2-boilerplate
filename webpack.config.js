@@ -12,6 +12,16 @@ const GLOBALS = {
 };
 const config = require('./package.json');
 
+const AUTOPREFIXER_BROWSERS = [
+  'Android 2.3',
+  'Android >= 4',
+  'Chrome >= 35',
+  'Firefox >= 31',
+  'Explorer >= 9',
+  'iOS >= 7',
+  'Opera >= 12',
+  'Safari >= 7.1',
+];
 const TS_LOADER = {
   test: /\.tsx?$/,
   exclude: [
@@ -82,8 +92,22 @@ const common = {
       }, {
         test: /\.txt$/,
         loader: 'raw-loader',
+      }, {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'url-loader?limit=10000',
+      }, {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
       }
     ],
+  },
+  
+  postcss: function plugins(bundler) {
+    return [
+      require('postcss-import')({ addDependencyTo: bundler }),
+      require('postcss-nested')(),
+      require('postcss-cssnext')({ autoprefixer: AUTOPREFIXER_BROWSERS }),
+    ];
   },
   
   ts: {
@@ -127,8 +151,10 @@ const client = Object.assign({}, common, {
   module: {
     loaders: [
       ...common.module.loaders,
-      // Support for CSS as raw text
-      {test: /\.css$/,   loader: 'raw'},
+      {
+        test: /\.css$/,
+        loader: 'css-loader!postcss-loader',
+      },
 
       // support for .html as raw text
       {test: /\.html$/,  loader: 'raw'},
@@ -199,7 +225,11 @@ const server = Object.assign({}, common, {
   ],
   module: {
     loaders: [
-      ...common.module.loaders
+      ...common.module.loaders,
+      {
+        test: /\.css$/,
+        loader: 'css-loader!postcss-loader',
+      }
     ],
   },
 });
