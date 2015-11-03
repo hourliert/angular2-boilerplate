@@ -1,6 +1,8 @@
 import * as path from 'path';
 import webpack from 'webpack';
+import MutliProgress from 'multi-progress';
 
+const multi = new MutliProgress();
 const DEBUG = !process.argv.includes('--release');
 const VERBOSE = process.argv.includes('--verbose');
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
@@ -37,7 +39,7 @@ const common = {
   context: __dirname,
   
   cache: DEBUG,
-  debug: DEBUG,
+  debug: VERBOSE,
   verbose: VERBOSE,
   displayErrorDetails: VERBOSE,
 
@@ -53,22 +55,6 @@ const common = {
     cachedAssets: VERBOSE
   },
 
-  // our Development Server config
-  devServer: {
-    publicPath: '/client/',
-    stats: {
-      colors: true,
-      reasons: DEBUG,
-      hash: VERBOSE,
-      version: VERBOSE,
-      timings: true,
-      chunks: VERBOSE,
-      chunkModules: VERBOSE,
-      cached: VERBOSE,
-      cachedAssets: VERBOSE
-    }
-  },
-  
   resolve: {
     root: __dirname,
     extensions: ['','.ts','.js','.json'],
@@ -98,9 +84,17 @@ const common = {
         loader: 'raw-loader',
       }
     ],
+  },
+  
+  ts: {
+    silent: true
   }
 };
 
+const clientBar = multi.newBar('Client [:bar] :percent :elapsed s', { 
+  total: 100,
+  clear: true
+});
 const client = Object.assign({}, common, {
   name: 'client',
   
@@ -126,7 +120,8 @@ const client = Object.assign({}, common, {
     path: path.join(__dirname, 'build', 'client'),
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
-    chunkFilename: '[id].chunk.js'
+    chunkFilename: '[id].chunk.js',
+    publicPath: '/client/'
   },
 
   module: {
@@ -163,10 +158,17 @@ const client = Object.assign({}, common, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js'
+    }),
+    new webpack.ProgressPlugin((percentage, msg) => {
+      clientBar.update(percentage);
     })
   ]
 });
 
+const serverBar = multi.newBar('Server [:bar] :percent :elapsed s', { 
+  total: 100,
+  clear: true
+});
 const server = Object.assign({}, common, {
   name: 'server',
   
@@ -191,6 +193,9 @@ const server = Object.assign({}, common, {
     ...common.plugins,
     new webpack.BannerPlugin('require("source-map-support").install();',
       {raw: true, entryOnly: false}),
+    new webpack.ProgressPlugin((percentage, msg) => {
+      serverBar.update(percentage);
+    })
   ],
   module: {
     loaders: [

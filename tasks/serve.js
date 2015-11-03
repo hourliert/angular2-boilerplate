@@ -14,7 +14,10 @@ export function serve() {
     target: 'localhost:5000',
 
     middleware: [
-      webpackDevMiddleware(bundler, webpackConfig[0].devServer)
+      webpackDevMiddleware(bundler, {
+        publicPath: webpackConfig[0].output.publicPath,
+        stats: webpackConfig[0].stats
+      })
     ]
   };
 
