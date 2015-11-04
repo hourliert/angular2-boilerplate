@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "babel": "^5.8.29",
-    "chai": "^3.4.0",
     "del": "^2.0.2",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
@@ -57,7 +56,6 @@
     "typescript-formatter": "^1.1.0",
     "url-loader": "^0.5.6",
     "webpack": "^1.12.2",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-stream": "^2.1.1"
+    "webpack-dev-middleware": "^1.2.0"
   }
 }
