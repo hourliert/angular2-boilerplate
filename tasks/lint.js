@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import gulpTslint from 'gulp-tslint';
 import shell from 'gulp-shell';
+import jscs from 'gulp-jscs';
 
 export function tslint() {
   return gulp.src(['src/**/*.ts'])
@@ -17,3 +18,8 @@ export function tsFormater() {
     }));
 }
 
+export function lintWithJscs() {
+  return gulp.src(['./**/*.js'])
+    .pipe(jscs({fix: true}))
+    .pipe(jscs.reporter());
+}

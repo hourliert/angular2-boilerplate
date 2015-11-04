@@ -3,7 +3,9 @@ import webpack from 'webpack';
 import webpackConfig from '../webpack.config';
 
 function handleCompilation(err, stats) {
-  if (err) throw new gutil.PluginError('webpack', err);
+  if (err) {
+    throw new gutil.PluginError('webpack', err);
+  }
   gutil.log('[webpack]', stats.toString(webpackConfig[0].stats));
 }
 
