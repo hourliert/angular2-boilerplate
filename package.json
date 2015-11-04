@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Angular 2 seed.",
   "main": "index.js",
+  "scripts": {
+    "webdriver-update": "webdriver-manager update"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hourliert/angular2-boilerplate.git"
@@ -25,6 +28,7 @@
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
     "gulp-jscs": "^3.0.2",
+    "gulp-protractor": "^1.0.0",
     "gulp-shell": "^0.5.1",
     "gulp-tslint": "^3.5.0",
     "gulp-util": "^3.0.7",
@@ -44,6 +48,7 @@
     "postcss-import": "^7.1.0",
     "postcss-loader": "^0.7.0",
     "postcss-nested": "^1.0.0",
+    "protractor": "^2.5.1",
     "raw-loader": "^0.5.1",
     "source-map-support": "^0.3.3",
     "ts-loader": "^0.6.0",

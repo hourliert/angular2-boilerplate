@@ -4,20 +4,22 @@ import { serve } from './tasks/serve';
 import { server } from './tasks/server';
 import { clean } from './tasks/clean';
 import { tslint, tsFormater, lintWithJscs } from './tasks/lint';
-import { unitTest } from './tasks/test';
+import { unitTest, e2eTest, updateWebDriver } from './tasks/test';
 
 global.watch = process.argv.includes('serve');
+
+gulp.task('clean', clean);
 
 gulp.task('bundle', ['clean'], bundle);
 gulp.task('server', ['bundle'], server);
 gulp.task('serve', ['server'], serve);
-
-gulp.task('clean', clean);
 
 gulp.task('jscs', lintWithJscs);
 gulp.task('tslint', tslint);
 gulp.task('tsformater', tsFormater);
 gulp.task('lint', ['tslint', 'tsformater', 'jscs']);
 
+gulp.task('update-driver', updateWebDriver);
 gulp.task('unittest', unitTest);
-gulp.task('test', ['unittest']);
+gulp.task('e2etest', ['update-driver', 'serve'], e2eTest);
+gulp.task('test', ['unittest', 'e2etest']);
