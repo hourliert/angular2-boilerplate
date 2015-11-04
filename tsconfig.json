@@ -12,8 +12,9 @@
     "listFiles": false,
     "outDir": "dist"
   },
-  "filesGlob": [
-    "src/**/*.ts",
+  "files": [
+    "src/client.ts",
+    "src/server.ts",
     "typings/tsd.d.ts"
   ]
 }
