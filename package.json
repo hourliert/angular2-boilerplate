@@ -19,9 +19,12 @@
   },
   "devDependencies": {
     "babel": "^5.8.29",
+    "clang-format": "^1.0.33",
     "del": "^2.0.2",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
+    "gulp-clang-format": "^1.0.21",
+    "gulp-tslint": "^3.5.0",
     "gulp-util": "^3.0.7",
     "json-loader": "^0.5.3",
     "multi-progress": "^1.0.0",

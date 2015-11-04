@@ -5,7 +5,7 @@ import * as express from 'express';
 // import { ng2engine } from 'angular2-universal-preview';
 // import { AppComponent } from './components';
 
-import { SERVER_PORT, SERVER_RENDERING } from './config';
+import {SERVER_PORT, SERVER_RENDERING} from './config';
 
 const app = express();
 const port = SERVER_PORT;
@@ -51,7 +51,7 @@ app.use('/client', express.static(path.join(__dirname, './client')));
 if (SERVER_RENDERING) {
   // app.engine('.ng2.html', ng2engine);
   // app.set('views', __dirname);
-  // app.set('view engine', 'ng2.html'); 
+  // app.set('view engine', 'ng2.html');
   // app.use('/', (req, res) => {
   //   res.render('index', { AppComponent });
   // });
@@ -64,9 +64,11 @@ if (SERVER_RENDERING) {
 
 app.listen(port, (error) => {
   if (error) {
-    console.info(error); // eslint-disable-line no-console
+    console.info(error);  // eslint-disable-line no-console
   } else {
-    console.info('==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port, port); // eslint-disable-line no-console
+    console.info(
+        '==> 🌎  Listening on port %s. Open up http://localhost:%s/ in your browser.', port,
+        port);  // eslint-disable-line no-console
     if (process.send) {
       process.send('online');
     }
