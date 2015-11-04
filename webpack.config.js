@@ -1,4 +1,4 @@
-import * as path from 'path';
+import { join } from 'path';
 import webpack from 'webpack';
 import MutliProgress from 'multi-progress';
 
@@ -141,7 +141,7 @@ const client = Object.assign({}, common, {
 
   // Config for our build files
   output: {
-    path: path.join(__dirname, 'build', 'client'),
+    path: join(__dirname, 'build', 'client'),
     filename: '[name].js',
     sourceMapFilename: '[name].js.map',
     chunkFilename: '[id].chunk.js',
@@ -202,7 +202,7 @@ const server = Object.assign({}, common, {
     './src/server',
   ],
   output: {
-    path: path.join(__dirname, './build'),
+    path: join(__dirname, './build'),
     filename: 'server.js',
     libraryTarget: 'commonjs2',
   },

@@ -4,6 +4,7 @@ import { serve } from './tasks/serve';
 import { server } from './tasks/server';
 import { clean } from './tasks/clean';
 import { tslint, tsFormater, lintWithJscs } from './tasks/lint';
+import { unitTest } from './tasks/test';
 
 global.watch = process.argv.includes('serve');
 
@@ -17,3 +18,6 @@ gulp.task('jscs', lintWithJscs);
 gulp.task('tslint', tslint);
 gulp.task('tsformater', tsFormater);
 gulp.task('lint', ['tslint', 'tsformater', 'jscs']);
+
+gulp.task('unittest', unitTest);
+gulp.task('test', ['unittest']);
