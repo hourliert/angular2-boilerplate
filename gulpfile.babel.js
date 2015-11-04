@@ -3,7 +3,7 @@ import { bundle } from './tasks/bundle';
 import { serve } from './tasks/serve';
 import { server } from './tasks/server';
 import { clean } from './tasks/clean';
-import { tslint, clang } from './tasks/lint';
+import { tslint, tsFormater } from './tasks/lint';
 
 global.watch = process.argv.includes('serve');
 
@@ -13,5 +13,5 @@ gulp.task('serve', ['server'], serve);
 
 gulp.task('clean', clean);
 gulp.task('tslint', tslint);
-gulp.task('clang', clang);
-gulp.task('lint', ['tslint', 'clang']);
+gulp.task('tsformater', tsFormater);
+gulp.task('lint', ['tslint', 'tsformater']);

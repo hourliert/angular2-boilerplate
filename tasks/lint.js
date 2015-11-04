@@ -1,12 +1,6 @@
 import gulp from 'gulp';
 import gulpTslint from 'gulp-tslint';
-import clangFormat from 'clang-format';
-import gulpFormat from 'gulp-clang-format';
-
-function doCheckFormat() {
-  return gulp.src(['src/**/*.ts'])
-    .pipe(gulpFormat.checkFormat('file', clangFormat));
-}
+import shell from 'gulp-shell';
 
 export function tslint() {
   return gulp.src(['src/**/*.ts'])
@@ -14,8 +8,12 @@ export function tslint() {
     .pipe(gulpTslint.report('prose', {emitError: false}));
 }
 
-export function clang() {
-  return doCheckFormat().on('warning', function(e) {
-    console.log("NOTE: this will be promoted to an ERROR in the continuous build");
-  });
+export function tsFormater() {
+  return gulp.src('tslint.json', {read: false})
+    .pipe(shell([
+      './node_modules/.bin/tsfmt -r'
+    ], {
+      verbose: true
+    }));
 }
+
