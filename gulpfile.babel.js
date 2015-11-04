@@ -6,6 +6,10 @@ import { clean } from './tasks/clean';
 import { tslint, tsFormater, lintWithJscs } from './tasks/lint';
 import { unitTest, e2eTest, updateWebDriver } from './tasks/test';
 
+function end() {
+  process.exit(0);  
+}
+
 global.watch = process.argv.includes('serve');
 
 gulp.task('clean', clean);
@@ -22,4 +26,4 @@ gulp.task('lint', ['tslint', 'tsformater', 'jscs']);
 gulp.task('update-driver', updateWebDriver);
 gulp.task('unittest', unitTest);
 gulp.task('e2etest', ['update-driver', 'serve'], e2eTest);
-gulp.task('test', ['unittest', 'e2etest']);
+gulp.task('test', ['unittest', 'e2etest'], end);
