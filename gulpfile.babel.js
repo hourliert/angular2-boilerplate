@@ -8,7 +8,7 @@ import { tslint, tsFormater, lintWithJscs } from './tasks/lint';
 import { unitTest, e2eTest, updateWebDriver } from './tasks/test';
 
 function end() {
-  process.exit(0);  
+  process.exit(0);
 }
 
 global.watch = process.argv.includes('serve');
