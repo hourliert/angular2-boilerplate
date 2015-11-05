@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import { copyIndex } from './tasks/copy';
 import { bundle } from './tasks/bundle';
 import { serve } from './tasks/serve';
 import { server } from './tasks/server';
@@ -14,8 +15,9 @@ global.watch = process.argv.includes('serve');
 
 gulp.task('clean', clean);
 
+gulp.task('copyindex', ['clean'], copyIndex);
 gulp.task('bundle', ['clean'], bundle);
-gulp.task('server', ['bundle'], server);
+gulp.task('server', ['bundle', 'copyindex'], server);
 gulp.task('serve', ['server'], serve);
 
 gulp.task('jscs', lintWithJscs);

@@ -1,6 +1,10 @@
-import 'babel-core/polyfill';
+import 'es6-shim';
 
 import {bootstrap} from 'angular2/angular2';
 import {AppComponent} from './components';
 
-bootstrap(AppComponent);
+import {CounterService} from './services';
+
+bootstrap(AppComponent, [
+  CounterService
+]);

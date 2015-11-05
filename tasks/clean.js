@@ -1,7 +1,7 @@
 import del from 'del';
 
 export function clean(cb) {
-  del(['build']).then(() => {
+  del(['build/*']).then(() => {
     cb();
   });
 }
