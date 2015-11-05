@@ -1,5 +1,6 @@
-import {Component} from 'angular2/angular2';
+import { Component } from 'angular2/angular2';
 import { Counter } from '../counter/counter';
+
 const template: string = require('./app.html');
 const styles: string = require('./app.css');
 

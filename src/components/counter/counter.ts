@@ -1,10 +1,10 @@
-import {Component, View} from 'angular2/angular2';
-import {CounterService} from '../../services';
+import { Component, View } from 'angular2/angular2';
+import { CounterService } from '../../services';
+
 const template: string = require('./counter.html');
 
 @Component({
   selector: 'counter',
-  providers: [CounterService],
   properties: [
     'counter'
   ]
